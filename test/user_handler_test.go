@@ -32,7 +32,17 @@ func TestCreateUser(t *testing.T) {
 		t.Errorf("expected 201 Created, got %d", w.Code)
 	}
 }
+func TestGetUserError(t *testing.T) {
+	server := setupMockServer()
 
+	req := httptest.NewRequest(http.MethodGet, "/users/1", bytes.NewReader(nil))
+	w := httptest.NewRecorder()
+
+	server.ServeHTTP(w, req)
+	if w.Code != http.StatusNotFound {
+		t.Errorf("expected 404 Got the user, got %d", w.Code)
+	}
+}
 func TestGetUser_NotFound(t *testing.T) {
 	server := setupMockServer()
 
