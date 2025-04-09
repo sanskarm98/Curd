@@ -19,10 +19,10 @@ func (h *UserHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch {
 	case r.Method == http.MethodPost && r.URL.Path == "/users":
 		h.CreateUser(w, r)
-	case r.Method == http.MethodGet && strings.HasPrefix(r.URL.Path, "/users"):
-		h.GetAllUser(w, r)
 	case r.Method == http.MethodGet && strings.HasPrefix(r.URL.Path, "/users/"):
 		h.GetUser(w, r)
+	case r.Method == http.MethodGet && strings.HasPrefix(r.URL.Path, "/users"):
+		h.GetAllUser(w, r)
 	case r.Method == http.MethodPut && strings.HasPrefix(r.URL.Path, "/users/"):
 		h.UpdateUser(w, r)
 	case r.Method == http.MethodDelete && strings.HasPrefix(r.URL.Path, "/users/"):
