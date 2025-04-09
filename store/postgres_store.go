@@ -1,8 +1,8 @@
 package store
 
 import (
+	"Curd/model"
 	"errors"
-	"hello_world1/model"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

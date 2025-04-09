@@ -1,8 +1,8 @@
 package test
 
 import (
+	"Curd/model"
 	"errors"
-	"hello_world1/model"
 )
 
 type MockUserStore struct {

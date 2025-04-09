@@ -1,9 +1,9 @@
 package main
 
 import (
-	"hello_world1/handler"
-	"hello_world1/router"
-	"hello_world1/store"
+	"Curd/handler"
+	"Curd/router"
+	"Curd/store"
 	"log"
 	"net/http"
 )

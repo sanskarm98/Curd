@@ -1,7 +1,7 @@
 package router
 
 import (
-	"hello_world1/handler"
+	"Curd/handler"
 	"net/http"
 )
 

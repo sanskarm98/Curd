@@ -1,9 +1,9 @@
 package handler
 
 import (
+	"Curd/model"
+	"Curd/store"
 	"encoding/json"
-	"hello_world1/model"
-	"hello_world1/store"
 	"log"
 	"net/http"
 	"strconv"

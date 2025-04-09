@@ -1,4 +1,4 @@
-module hello_world1
+module Curd
 
 go 1.23.4
 

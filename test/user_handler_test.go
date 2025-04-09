@@ -1,11 +1,11 @@
 package test
 
 import (
+	"Curd/handler"
+	"Curd/model"
+	"Curd/router"
 	"bytes"
 	"encoding/json"
-	"hello_world1/handler"
-	"hello_world1/model"
-	"hello_world1/router"
 	"net/http"
 	"net/http/httptest"
 	"testing"
