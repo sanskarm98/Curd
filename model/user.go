@@ -1,9 +1,15 @@
 package model
 
+// User represents the structure of a user in the system.
+// It includes fields for ID, Name, and Email.
 type User struct {
-	//ID int `json:"id"`
-	ID   int    `gorm:"primaryKey;autoIncrement"`
+	// ID is the primary key for the User table in the database.
+	// It is auto-incremented by GORM.
+	ID int `gorm:"primaryKey;autoIncrement"`
+
+	// Name is the name of the user.
 	Name string `json:"name"`
-	//LastName string `json:"lastname"`
+
+	// Email is the email address of the user.
 	Email string `json:"email"`
 }
