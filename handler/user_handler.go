@@ -1,13 +1,17 @@
 package handler
 
 import (
+	"Curd/firebase"
 	"Curd/model"
+	"Curd/notification"
 	"Curd/store"
 	"encoding/json"
 	"log"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"firebase.google.com/go/messaging"
 )
 
 type UserHandler struct {
@@ -41,7 +45,7 @@ func (h *UserHandler) extractID(r *http.Request) (int, error) {
 }
 
 func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
-	log.Printf(" CreateUser Request: %s %s\n", r.Method, r.URL.Path)
+	log.Printf("CreateUser Request: %s %s\n", r.Method, r.URL.Path)
 	var user model.User
 	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
 		http.Error(w, "Invalid input", http.StatusBadRequest)
@@ -52,6 +56,30 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Failed to create user", http.StatusInternalServerError)
 		return
 	}
+
+	// Send FCM Notification
+	message := &messaging.Message{
+		Notification: &messaging.Notification{
+			Title: "New User Created",
+			Body:  "User " + created.Name + " has been successfully created.",
+		},
+		Topic: "user-updates",
+	}
+	_, err = firebase.FCMClient.Send(r.Context(), message)
+	if err != nil {
+		log.Printf("Failed to send FCM notification: %v", err)
+	}
+
+	// Send Email Notification
+	err = notification.SendEmail(
+		created.Email,
+		"Welcome to Our Service",
+		"Hello "+created.Name+", welcome to our platform!",
+	)
+	if err != nil {
+		log.Printf("Failed to send email notification: %v", err)
+	}
+
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(created)
 }
